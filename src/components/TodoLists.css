@@ -1,3 +1,11 @@
 .todo__list {
     text-align: center;
 }
+
+.edit {
+    margin-right: 10px;
+}
+
+.modal {
+    margin: 0 auto;
+}

@@ -17,7 +17,10 @@ const Todo = () => {
         // code ... fires when the todo.js is loaded
         db.collection('todos').orderBy('timestamp','desc').onSnapshot(snapshot => {
             // console.log(snapshot.docs.map(doc =>doc.data()))
-            setTodos(snapshot.docs.map(doc =>doc.data().todo))//allows us to read from firebase Db
+            setTodos(snapshot.docs.map(doc => ({
+                id: doc.id,
+                todo: doc.data().todo
+            })))//allows us to read from firebase Db
         })
 
     }, [input]);
@@ -62,22 +65,23 @@ const Todo = () => {
                 />
                 
                 
-            </FormControl>
-            {/**Disable button if submitted while the input is empty */}
+                </FormControl>
+                {/**Disable button if submitted while the input is empty */}
             <Button variant="contained" color="primary"
-            type="submit"
-            onClick={addListHandler}
-            disabled={!input}>
-                Add Todo
-            </Button>
+                style={{ marginLeft: 10, marginTop:12 }}
+                type="submit"
+                onClick={addListHandler}
+                disabled={!input}>
+                    Add Todo
+                </Button>
             
 
            
 
             <ul>
                 {todos.map(todo => (
-
-                    <TodoLists text={todo} />
+                    <TodoLists todo={todo}/>
+                    // <TodoLists text={todo} />
                     //<li key={todo}>{todo}</li>
                     
                 ) )}
